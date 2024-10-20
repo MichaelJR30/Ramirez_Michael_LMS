@@ -41,7 +41,7 @@ public class Main {
             System.out.println("3. Remove a book by the title");
             System.out.println("4. List all books");
             System.out.println("5. Check out a book by barcode number");
-            System.out.println("6. Check in a book by barcode number");
+            System.out.println("6. Check in a book by Title");
             System.out.println("7. Save and Exit");
             System.out.print("Enter your choice (1-7): ");
             String choice = scanner.nextLine();
@@ -77,7 +77,7 @@ public class Main {
                     library.listBooks();
                     break;
                 case "6":
-                    System.out.print("Enter the barcode number of the book to check in: ");
+                    System.out.print("Enter the Title of the book to check in: ");
                     String checkInId = scanner.nextLine();
                     library.checkIn(checkInId);
                     library.listBooks();

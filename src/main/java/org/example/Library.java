@@ -133,9 +133,26 @@ public class Library {
     }
 
     // Check in a book
-    public void checkIn(String id) {
-        if (collection.containsKey(id)) {
-            Book book = collection.get(id);
+    public void checkIn(String title) {
+        boolean bookFound = false;  // Track if a book is found
+        String bookIdToCheckIn = null;
+
+        title=title.trim();
+
+        // Iterate over the collection to find a book by title
+        for (Map.Entry<String, Book> entry : collection.entrySet()) {
+            Book book = entry.getValue();
+
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                bookIdToCheckIn = entry.getKey();
+                bookFound = true;
+                break;
+            }
+        }
+
+        // Check in the book if found
+        if (bookFound && bookIdToCheckIn != null) {
+            Book book = collection.get(bookIdToCheckIn);
             if (book.getStatus().equals("Checked out")) {
                 book.checkIn();
                 System.out.println("Check in: " + book);
@@ -143,9 +160,10 @@ public class Library {
                 System.out.println("Book already checked in. ");
             }
         } else {
-            System.out.println("Book not found: " + id);
+            System.out.println("Book not found: " + title);
         }
     }
+
 
     /**
      Lists all books in the collection.

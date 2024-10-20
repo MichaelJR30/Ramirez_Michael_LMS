@@ -1,4 +1,4 @@
 1,To Kill a Mockingbird, harper Lee, Checked in, due Date: null
-2, 1984, George Orwell, Checked in, due Date: null
-3, The Great Gatsby, F.Scott Fitzgerald, Checked in, due Date: null
-4, Cradle, Will Wight, Checked in, due Date: null
+2,1984, George Orwell, Checked in, due Date: null
+3,The Great Gatsby, F.Scott Fitzgerald, Checked in, due Date: null
+4,Cradle, Will Wight, Checked in, due Date: null
