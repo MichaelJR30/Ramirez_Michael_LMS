@@ -27,7 +27,7 @@ public class MainFrame extends JFrame {
 
     private static final String collectionFile = "collection.txt";
 
-
+    // GUI components
     private Library library;
     private JPanel BasePanel;
     private JPanel ButtonPanel;
@@ -51,10 +51,16 @@ public class MainFrame extends JFrame {
     private JButton button1Clear;
     private JButton button2Clear;
 
+    /**
+     Constructor: MainFrame
+     Initializes the GUI frame, sets up the Library instance, loads the book collection from file, and
+     defines actions for each button in the interface.
+     */
     public MainFrame () {
 
-        library = new Library();
+        library = new Library();  // Initialize library collection
 
+        // Set up the GUI frame properties
         setContentPane(BasePanel);
         setTitle("Library Management System");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,9 +68,11 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
+        // Load the library collection from a file and display in textArea1
         library.loadCollection(collectionFile);
         textArea1.setText(library.listBooks());  // Display loaded books in textArea1
 
+        // Switch to Add Book panel
         AddFileTab.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,6 +83,7 @@ public class MainFrame extends JFrame {
             }
         });
 
+        // Switch to Main LMS panel
         MainLMSTab.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,6 +94,10 @@ public class MainFrame extends JFrame {
             }
         });
 
+        /**
+         Adds books to the library collection from a specified file.
+         Triggered by the "addBooksButton" in the GUI.
+         */
        addBooksButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -94,12 +107,18 @@ public class MainFrame extends JFrame {
             }
        });
 
+        // Clears the file input field (tfFileName)
         ClearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 tfFileName.setText("");
             }
         });
+
+        /**
+         Checks in a book to the library collection by title.
+         Triggered by the "CheckInButton" in the GUI.
+         */
         CheckInButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -108,6 +127,10 @@ public class MainFrame extends JFrame {
             }
         });
 
+        /**
+         Checks out a book from the library collection by title.
+         Triggered by the "CheckOutButton" in the GUI.
+         */
         CheckOutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -116,12 +139,21 @@ public class MainFrame extends JFrame {
             }
         });
 
+        /**
+         Displays the list of all books in the library collection.
+         Triggered by the "DisplayBooksButton" in the GUI.
+         */
         DisplayBooksButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 textArea1.setText(library.listBooks());
             }
         });
+
+        /**
+         Saves the current collection to file and exits the application.
+         Triggered by the "ExitButton" in the GUI.
+         */
         ExitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -131,6 +163,10 @@ public class MainFrame extends JFrame {
             }
         });
 
+        /**
+         Removes a book by title from the library collection.
+         Triggered by the "RMBookT" button in the GUI.
+         */
         RMBookT.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -139,6 +175,10 @@ public class MainFrame extends JFrame {
             }
         });
 
+        /**
+         Removes a book by its barcode from the library collection.
+         Triggered by the "RMBookNum" button in the GUI.
+         */
         RMBookNum.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -146,8 +186,27 @@ public class MainFrame extends JFrame {
                 textArea1.setText(library.removeBook(BookBarcode));
             }
         });
+
+        // Clears the check-in/out input field (tfCheckInOut)
+        button1Clear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tfCheckInOut.setText("");
+            }
+        });
+
+        // Clears the remove book input field (tfRemoveBook)
+        button2Clear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tfRemoveBook.setText("");
+            }
+        });
     }
 
+    /**
+     Main method: Starts the GUI application for the Library Management System.
+     */
     public static void main(String[] args) {
         new MainFrame();
     }
