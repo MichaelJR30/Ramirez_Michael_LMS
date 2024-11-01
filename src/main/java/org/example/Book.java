@@ -3,7 +3,7 @@ package org.example;
 import java.util.Calendar;
 
 /**
-Michael Ramirez, Software Development I, CEN 3024C, October 14, 2024
+Michael Ramirez, Software Development I, CEN 3024C, November 3, 2024
 
 Class: Book
 

@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Map;
 import java.util.TreeMap;
 /**
- Michael Ramirez, Software Development I, CEN 3024C, October 14, 2024
+ Michael Ramirez, Software Development I, CEN 3024C, November 3, 2024
 
  Class: Library
 
@@ -12,7 +12,7 @@ import java.util.TreeMap;
  It manages a collection of books by adding, removing, listing, checking in/out books
  saving, and loading books from a file. The class uses a
  TreeMap to store the collection of books, where each book has a
- unique ID/barcode, and books can be manipulated based on that ID/barcode.
+ unique ID/barcode, and books can be manipulated based on title or ID/barcode.
  */
 public class Library {
     // Collection of books, stored in a TreeMap with book ID as the key
@@ -28,13 +28,16 @@ public class Library {
      separated by commas.
 
      @param filename the file path to load the books from
+
+     @return toString messages
      */
-    public void addBooksFromFile(String filename) {
+    public String addBooksFromFile(String filename) {
+        StringBuilder messages = new StringBuilder();
         File file = new File(filename);
 
         if (!file.exists()) {
-            System.err.println("File not found: " + filename);
-            return;
+            messages.append("File not found: ").append(filename).append("\n");
+            return messages.toString();
         }
 
         // Try reading the file line by line
@@ -48,7 +51,7 @@ public class Library {
 
                     // Validate line format
                     if (tokens.length != 3) {
-                        System.err.println("Invalid line in file: " + line +"\n");
+                        messages.append("Invalid line in file: ").append(line).append("\n");
                         continue;
                     }
                     String id = tokens[0];
@@ -57,7 +60,7 @@ public class Library {
 
                     // Validate that the ID is numeric
                     if (!id.matches("\\d+")) {
-                        System.err.println("Invalid book barcode (not numeric): " + line + "\n");
+                        messages.append("Invalid book barcode (not numeric): ").append(line).append("\n");
                         continue;
                     }
 
@@ -65,33 +68,43 @@ public class Library {
                     Book book = new Book(id, title, author);
                     if (!collection.containsKey(book.getId())) {
                         collection.put(book.getId(), book);
-                        System.out.println("Added book: " + id + ", " + title + ", " + author);
+                        messages.append("Added book: ").append(id).append(", ").append(title).append(", ").append(author).append("\n");
                     } else {
-                        System.err.println("Duplicate book barcode: " + book.getId());
+                        messages.append("Duplicate book barcode: ").append(book.getId()).append("\n");
                     }
                 } catch (Exception e) {
-                    System.err.println("Error processing line: " + line + e.getMessage());
+                    messages.append("Error processing line: ").append(line).append(" ").append(e.getMessage()).append("\n");
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error reading file: " + filename + e.getMessage());
+            messages.append("Error reading file: ").append(filename).append(" ").append(e.getMessage()).append("\n");
         }
+        return messages.toString();
     }
     /**
      Removes a book from the collection by its book barcode.
 
      @param id the barcode of the book to remove
+     @return messages.toString()
      */
-    public void removeBook(String id) {
+    public String removeBook(String id) {
+        StringBuilder messages = new StringBuilder();
         if (collection.containsKey(id)) {
             collection.remove(id);
-            System.out.println("Removed book: " + id);
+            messages.append("Removed book: ").append(id).append("\n");
         } else {
-            System.out.println("Book not found: " + id);
+            messages.append("Book not found: ").append(id).append("\n");
         }
+        return messages.toString();
     }
+    /**
+     Removes a book from the collection by its Title.
 
-    public void removeBookByTitle(String title) {
+     @param title the name of the book to remove
+     @return messages.toString()
+     */
+    public String removeBookByTitle(String title) {
+        StringBuilder messages = new StringBuilder();
         boolean bookFound = false;  // Track if a book is found
         String bookIdToRemove = null;
 
@@ -111,29 +124,50 @@ public class Library {
         // Remove the book if found
         if (bookFound && bookIdToRemove != null) {
             collection.remove(bookIdToRemove);
-            System.out.println("Removed book: " + title);
+            messages.append("Removed book: ").append(title).append("\n");
         } else {
-            System.out.println("Book not found: " + title);
+            messages.append("Book not found: ").append(title).append("\n");
         }
+        return messages.toString();
     }
 
     // Check out a book
-    public void checkOut(String id) {
-        if (collection.containsKey(id)) {
-            Book book = collection.get(id);
+    public String checkOut(String title) {
+        StringBuilder messages = new StringBuilder();
+        boolean bookFound = false;  // Track if a book is found
+        String bookIdToCheckOut = null;
+
+        title=title.trim();
+
+        // Iterate over the collection to find a book by title
+        for (Map.Entry<String, Book> entry : collection.entrySet()) {
+            Book book = entry.getValue();
+
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                bookIdToCheckOut = entry.getKey();
+                bookFound = true;
+                break;
+            }
+        }
+
+        // Check out the book if found
+        if (bookFound && bookIdToCheckOut != null) {
+            Book book = collection.get(bookIdToCheckOut);
             if (book.getStatus().equals("Checked in")) {
                 book.checkOut();
-                System.out.println("Check out: " + book);
+                messages.append("Check out: ").append(book).append("\n");
             } else {
-                System.out.println("Book already checked out. ");
+                messages.append("Book already checked out. ").append("\n");
             }
         } else {
-            System.out.println("Book not found: " + id);
+            messages.append("Book not found: ").append(title).append("\n");
         }
+        return messages.toString();
     }
 
     // Check in a book
-    public void checkIn(String title) {
+    public String checkIn(String title) {
+        StringBuilder messages = new StringBuilder();
         boolean bookFound = false;  // Track if a book is found
         String bookIdToCheckIn = null;
 
@@ -155,57 +189,68 @@ public class Library {
             Book book = collection.get(bookIdToCheckIn);
             if (book.getStatus().equals("Checked out")) {
                 book.checkIn();
-                System.out.println("Check in: " + book);
+                messages.append("Check in: ").append(book).append("\n");
             } else {
-                System.out.println("Book already checked in. ");
+                messages.append("Book already checked in. ").append("\n");
             }
         } else {
-            System.out.println("Book not found: " + title);
+            messages.append("Book not found: ").append(title).append("\n");
         }
+        return messages.toString();
     }
 
 
     /**
-     Lists all books in the collection.
-     Displays the book ID along with the book's details.
+     * Lists all books in the collection.
+     * Displays the book ID along with the book's details.
+     *
+     * @return toString bookList
      */
-    public void listBooks() {
+    public String listBooks() {
+        StringBuilder bookList = new StringBuilder();
         if (collection.isEmpty()) {
-            System.out.println("No books found in library");
+            bookList.append("No books found in library");
         } else {
+            bookList.append("Books Collection:\n");
             for (Map.Entry<String, Book> entry : collection.entrySet()) {
-                System.out.println(entry.getKey() + ", " + entry.getValue());
+                bookList.append(entry.getKey()).append(", ").append(entry.getValue()).append("\n");
             }
         }
+        return bookList.toString();
     }
     /**
      Saves the current collection of books to a file.
      Each book is saved in CSV format (ID, title, author).
 
      @param filename the file path where the collection will be saved
+     @return messages.toString()
      */
-    public void saveCollection(String filename) {
+    public String saveCollection(String filename) {
+        StringBuilder messages = new StringBuilder();
         try (PrintWriter writer = new PrintWriter(filename)) {
             for (Map.Entry<String, Book> entry : collection.entrySet()) {
                 writer.println(entry.getKey() + "," + entry.getValue());
             }
-            System.out.println("Saved collection to " + filename);
+            messages.append("Saved collection to ").append(filename).append("\n");
         } catch (IOException e) {
-            System.err.println("Error saving to file: " + e.getMessage());
+            messages.append("Error saving to file: ").append(e.getMessage()).append("\n");
         }
+        return messages.toString();
     }
     /**
      Loads the book collection from a file.
      The file must contain lines in the format: ID,title,author.
 
      @param filename the file path from which to load the collection
+     @return messages.toString()
      */
-    public void loadCollection(String filename) {
+    public String loadCollection(String filename) {
+        StringBuilder messages = new StringBuilder();
         File file = new File(filename);
 
         if (!file.exists()) {
-            System.out.println("Collection file not found: " + filename);
-            return;
+            messages.append("Collection file not found: ").append(filename).append("\n");
+            return messages.toString();
         }
 
         // Try reading the file and loading the collection
@@ -217,7 +262,7 @@ public class Library {
 
                     // Ensure each line has exactly 5 fields: id, title, author, status, dueDate
                     if (tokens.length != 5) {
-                        System.err.println("Invalid line in file: " + line + " : file : " + filename + "\n");
+                        messages.append("Invalid line in file: ").append(line).append(" : file : ").append(filename).append("\n");
                         continue;
                     }
                     String id = tokens[0];
@@ -228,7 +273,7 @@ public class Library {
 
                     // Validate if ID is numeric
                     if (!id.matches("\\d+")) {
-                        System.err.println("Invalid book barcode (not numeric): " + id);
+                        messages.append("Invalid book barcode (not numeric): ").append(id).append("\n");
                         continue;
                     }
 
@@ -243,12 +288,13 @@ public class Library {
                     // Add the book to the collection
                     collection.put(id, book);
                 } catch (Exception e) {
-                    System.err.println("Error processing line: " + line + e.getMessage());
+                    messages.append("Error processing line: ").append(line).append(e.getMessage()).append("\n");
                 }
             }
-            System.out.println("Loaded collection from " + filename);
+            messages.append("Loaded collection from ").append(filename).append("\n");
         } catch (IOException e) {
-            System.err.println("Error reading file: " + filename + e.getMessage());
+            messages.append("Error reading file: ").append(filename).append(e.getMessage()).append("\n");
         }
+        return messages.toString();
     }
 }
