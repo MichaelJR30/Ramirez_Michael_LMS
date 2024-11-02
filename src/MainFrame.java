@@ -94,7 +94,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        /**
+        /*
          Adds books to the library collection from a specified file.
          Triggered by the "addBooksButton" in the GUI.
          */
@@ -115,7 +115,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        /**
+        /*
          Checks in a book to the library collection by title.
          Triggered by the "CheckInButton" in the GUI.
          */
@@ -127,7 +127,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        /**
+        /*
          Checks out a book from the library collection by title.
          Triggered by the "CheckOutButton" in the GUI.
          */
@@ -139,7 +139,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        /**
+        /*
          Displays the list of all books in the library collection.
          Triggered by the "DisplayBooksButton" in the GUI.
          */
@@ -150,7 +150,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        /**
+        /*
          Saves the current collection to file and exits the application.
          Triggered by the "ExitButton" in the GUI.
          */
@@ -163,7 +163,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        /**
+        /*
          Removes a book by title from the library collection.
          Triggered by the "RMBookT" button in the GUI.
          */
@@ -175,7 +175,7 @@ public class MainFrame extends JFrame {
             }
         });
 
-        /**
+        /*
          Removes a book by its barcode from the library collection.
          Triggered by the "RMBookNum" button in the GUI.
          */
