@@ -1,7 +1,6 @@
 package src;
 
 import org.example.Library;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +23,7 @@ import java.awt.event.ActionListener;
  the underlying functionality of managing the library's collection.
  */
 public class MainFrame extends JFrame {
+
 
     private static final String collectionFile = "collection.txt";
 
