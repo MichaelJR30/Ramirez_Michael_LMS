@@ -104,4 +104,7 @@ public class DBHelper {
 		return result;
 	}
 
+	public void closeDatabase() {
+		close();
+	}
 }

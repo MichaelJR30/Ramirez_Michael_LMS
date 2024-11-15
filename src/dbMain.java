@@ -98,7 +98,7 @@ public class dbMain extends JFrame {
         ExitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                db1.closeDatabase(); // Close the database connection
                 System.exit(0);  // Exit the application
             }
         });

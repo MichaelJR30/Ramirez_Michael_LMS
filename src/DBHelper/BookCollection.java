@@ -211,4 +211,9 @@ public class BookCollection extends DBHelper {
 		}
 		return bookStatus.toString();
 	}
+
+	// Close the database connection
+	public void closeDatabase() {
+		super.closeDatabase();
+	}
 }
