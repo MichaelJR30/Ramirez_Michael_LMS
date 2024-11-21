@@ -4,10 +4,11 @@ import java.io.*;
 import java.util.Map;
 import java.util.TreeMap;
 /**
- Michael Ramirez, Software Development I, CEN 3024C, November 3, 2024
+ Michael Ramirez, Software Development I, CEN 3024C, November 24, 2024
 
  Class: Library
 
+ This Class has been replaced with BookCollection Class.
  This class represents the Library Management System (LMS).
  It manages a collection of books by adding, removing, listing, checking in/out books
  saving, and loading books from a file. The class uses a

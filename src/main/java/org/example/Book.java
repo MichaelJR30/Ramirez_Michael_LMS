@@ -3,10 +3,11 @@ package org.example;
 import java.util.Calendar;
 
 /**
-Michael Ramirez, Software Development I, CEN 3024C, November 3, 2024
+Michael Ramirez, Software Development I, CEN 3024C, November 24, 2024
 
 Class: Book
 
+ This Class is not used anymore do to the database.
 This class represents a Book in the Library Management System (LMS).
 It contains information about a book, including its ID/barcode, title, author, status, and due date.
 The class provides getter methods to access these details and an override

@@ -3,11 +3,11 @@ package org.example;
 import java.util.Scanner;
 
 /**
- Michael Ramirez, Software Development I, CEN 3024C, October 14, 2024
+ Michael Ramirez, Software Development I, CEN 3024C, November 24, 2024
 
  Class: Main
 
- This is the entry point for the Library Management System (LMS).
+ This is the old entry point for the Library Management System (LMS) before GUI.
  It provides an interactive console-based menu that allows users to:
  1. Add new books from a file to the library's collection.
  2. Remove a book from the collection by its unique barcode number.

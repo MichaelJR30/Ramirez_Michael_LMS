@@ -5,11 +5,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 /**
- Michael Ramirez, Software Development I, CEN 3024C, November 3, 2024
+ Michael Ramirez, Software Development I, CEN 3024C, November 24, 2024
 
  Class: MainFrame
 
- This is the GUI for the Library Management System (LMS).
+ This is the old GUI for the Library Management System (LMS) that work with text files instead of a database.
  It provides an interactive window menu that allows users to:
  1. Add new books from a file to the library's collection.
  2. Remove a book from the collection by its unique barcode number.
